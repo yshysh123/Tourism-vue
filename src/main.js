@@ -1,11 +1,12 @@
 import Vue from "vue";
-import store from "@/store";
+import store from "./store";
 import App from "./App";
 import './iconfont/iconfont.css'
 var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
 
 Vue.prototype.$ajax = fly; //将fly实例挂在vue原型上
+Vue.prototype.$store = store;
 
 Vue.config.productionTip = false;
 App.mpType = "app";

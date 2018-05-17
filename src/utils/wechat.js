@@ -41,3 +41,9 @@ export function saveImageToPhotosAlbum (type) {
     wx.saveImageToPhotosAlbum({ type: type, success: resolve, fail: reject })
   })
 }
+
+export function onShareAppMessage (type) {
+  return new Promise((resolve, reject) => {
+    wx.onShareAppMessage({ type: type, success: resolve, fail: reject })
+  })
+}
