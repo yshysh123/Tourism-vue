@@ -5,7 +5,7 @@
      <i class="icon-T iconfont iconWidth" :class="isClickrulr ? 'blueColor':''" @click="edite"></i>
      <i class="icon-dingwei iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></i>
      <i class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></i>
-     <button @click="shareVist" open-type="share">分享</button>
+     <button open-type="share">分享</button>
     </div>
   </div>
 </template>
@@ -39,11 +39,13 @@ export default {
       }
       .iconWidth {
         width: 20%;
+        height: 100%;
         text-align: center;
         border-right:1px solid #ccc;
       }
       .lastIcon{
         width: 20%;
+        height: 100%;
         text-align: center;
       }
       .blueColor {
@@ -87,15 +89,16 @@ export default {
         return this.$store.state.board.isClickrulo
       }
     },
+    onShareAppMessage(res){
+      return {
+        title: '我获得22分，快来一起掌握基础音阶知识吧！',
+        path: '/pages/index/index',
+        imageUrl: 'https://wechat.dddog.com.cn/static/wescale.jpg'
+      }
+    },
     methods: {
       shareVist(){
 
-      },
-      onShareAppMessage(res){
-        if (res.from === 'button') {
-          // 来自页面内转发按钮
-          console.log(res.target)
-        }
       },
       phoneto(){
         this.$store.state.board.isClickrule = true;

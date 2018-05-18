@@ -2,6 +2,7 @@ import Vue from "vue";
 import store from "./store";
 import App from "./App";
 import './iconfont/iconfont.css'
+import 'mp-weui/lib/style.css'
 var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
 
@@ -25,7 +26,7 @@ export default {
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
-      navigationBarTitleText: "WeChat",
+      navigationBarTitleText: "景区导航",
       navigationBarTextStyle: "black"
     }
     // tabBar: {

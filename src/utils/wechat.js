@@ -30,20 +30,20 @@ export function getLocation (type) {
   })
 }
 
-export function canvasToTempFilePath (type) {
+export function wxGetImageInfo (src) {
   return new Promise((resolve, reject) => {
-    wx.canvasToTempFilePath({ type: type, success: resolve, fail: reject })
+    wx.wxGetImageInfo({ src: src, success: resolve, fail: reject })
   })
 }
 
-export function saveImageToPhotosAlbum (type) {
+export function wxCanvasToTempFilePath (canvasId) {
   return new Promise((resolve, reject) => {
-    wx.saveImageToPhotosAlbum({ type: type, success: resolve, fail: reject })
+    wx.wxCanvasToTempFilePath({ canvasId: canvasId, success: resolve, fail: reject })
   })
 }
 
-export function onShareAppMessage (type) {
+export function wxSaveImageToPhotosAlbum (filePath) {
   return new Promise((resolve, reject) => {
-    wx.onShareAppMessage({ type: type, success: resolve, fail: reject })
+    wx.wxSaveImageToPhotosAlbum({ filePath: filePath, success: resolve, fail: reject })
   })
 }
