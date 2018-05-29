@@ -39,10 +39,10 @@ export default {
 //      wx.navigateTo({ url })
       const url = '../instrustor/main'
       wx.navigateTo({ url })
-      wx.previewImage({
-       /* current: url, // 当前显示图片的http链接*/
-        urls: ['https://qr.api.cli.im/qr?data=https%253A%252F%252Fwww.baidu.com&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=3d9a7684e3712110675d398ca0c86070'] // 需要预览的图片http链接列表
-      })
+//      wx.previewImage({
+//       /* current: url, // 当前显示图片的http链接*/
+//        urls: ['https://qr.api.cli.im/qr?data=https%253A%252F%252Fwww.baidu.com&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=3d9a7684e3712110675d398ca0c86070'] // 需要预览的图片http链接列表
+//      })
     },
     getUser () {
       getUserInfo().then((res)=>{

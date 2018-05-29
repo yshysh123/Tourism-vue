@@ -89,13 +89,13 @@ export default {
         return this.$store.state.board.isClickrulo
       }
     },
-    onShareAppMessage(res){
+    /*onShareAppMessage(res){
       return {
         title: '我获得22分，快来一起掌握基础音阶知识吧！',
         path: '/pages/index/index',
         imageUrl: 'https://wechat.dddog.com.cn/static/wescale.jpg'
       }
-    },
+    },*/
     methods: {
       shareVist(){
 

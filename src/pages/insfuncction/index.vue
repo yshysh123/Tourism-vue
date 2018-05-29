@@ -15,7 +15,7 @@
       <div class="wordChange" v-show="isClickrulr">
         <ul style="overflow:hidden">
           <li v-for="(item,index) in words" :key="index" @click="changeWord(item,index)">
-            <i :class="['not_icon',{style:index == selectedWords}]"></i> 
+            <i :class="['not_icon',{style:index == selectedWords}]"></i>
             {{item}}
           </li>
         </ul>
@@ -23,14 +23,14 @@
       <div class="locationChange" v-show="isClickruly">
         <ul style="overflow:hidden">
           <li v-for="(item,index) in locations" :key="index" @click="changeLocation(item,index)">
-            <i :class="['not_icon',{style:index == selectedLocations}]"></i> 
+            <i :class="['not_icon',{style:index == selectedLocations}]"></i>
             {{item}}
           </li>
         </ul>
       </div>
       <div class="locationChange" v-show="isClickrulo">
         <button @click="saveImage">保存相册</button>
-        <canvas canvas-id="shareCanvas"  :class="['none',{show:canvasShow}]"/>
+        <canvas canvas-id="shareCanvas"  style="background-color:white" :class="['none',{show:canvasShow}]"/>
       </div>
       <card :text="motto"></card>
     </div>
@@ -50,7 +50,7 @@
       margin: 0 auto;
       position: relative;
     }
-    
+
     .imgChange{
       width: 100%;
       ul{
@@ -84,10 +84,10 @@
             display: inline-block;;
             width: 20px;
             height: 20px;
-            
+
           }
           .not_icon {
-            background: url('../../../static/images/icon1.png') no-repeat center center;  
+            background: url('../../../static/images/icon1.png') no-repeat center center;
             background-size: 100% 100%;
           }
           .style {
@@ -108,10 +108,10 @@
             display: inline-block;;
             width: 20px;
             height: 20px;
-            
+
           }
           .not_icon {
-            background: url('../../../static/images/icon1.png') no-repeat center center;  
+            background: url('../../../static/images/icon1.png') no-repeat center center;
             background-size: 100% 100%;
           }
           .style {
@@ -166,6 +166,7 @@
         props: [],
         data() {
             return {
+              imgSrc: '',
               goLink:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526390630984&di=d0c4299e53a91d334a365632ad4da561&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmw690%2F51248e24gx6ClIYbmgR95%26690',
               visitFont:'在清朝乾隆时期（1736-1795）在此筑九层延寿塔，至第八层“奉旨停修”,改建佛香阁。1860年（咸丰十年）毁于英法' +
               '联军，光绪时（1875-1908）在原址依样重建，供奉佛像。',
@@ -179,8 +180,25 @@
               canvasShow:false
             }
         },
+      onShareAppMessage(res){
+        return {
+          title: '分享获得优惠券！',
+          path: '/pages/index/main',
+          imageUrl: this.imgSrc,
+          success: function(res) {
+           wx.navigateTo({
+             url: '/pages/savePage/main'
+           })
+            // 转发成功
+          },
+          fail: function(res) {
+            // 转发失败
+          }
+        }
+      },
         computed: {
           pics(){
+            this.imgSrc = this.$store.state.board.boards[0]
             return this.$store.state.board.boards
           },
           words(){
@@ -204,6 +222,7 @@
         },
         methods: {
           changeImg(item,index){
+            this.imgSrc = item.key
             if(index==0){
               wx.chooseImage({
                 count: 1, // 默认9
@@ -227,40 +246,41 @@
             this.locationNow = item
             this.selectedLocations = index
           },
-          draw_long_text(longtext,ctx,begin_width,begin_height)  
-          {   
-            var linelenght = 20;  
-            var text = "";  
-            var count = 0;  
-            var begin_width = begin_width;  
-            var begin_height = begin_height;  
-            var stringLenght = longtext.length;  
-            var newtext = longtext.split("");  
+          draw_long_text(longtext,ctx,begin_width,begin_height)
+          {
+
+            var linelenght = 20;
+            var text = "";
+            var count = 0;
+            var begin_width = begin_width;
+            var begin_height = begin_height;
+            var stringLenght = longtext.length;
+            var newtext = longtext.split("");
             ctx.setTextAlign('left')    // 文字居中
             ctx.setFillStyle('#000000')  // 文字颜色：黑色
-            ctx.setFontSize(14)        
-              
-            for(let i = 0; i <= stringLenght ; i++)  
-            {  
-              if(count == 23)  
-              {  
-                ctx.fillText(text,begin_width,begin_height);  
-                begin_height = begin_height + 25;  
-                text = "";  
-                count = 0;  
-              }  
-              if(i == stringLenght)  
-              {  
-                ctx.fillText(text,begin_width,begin_height);  
-              }  
-              var text = text + newtext[0];  
-              count ++;  
-              newtext.shift();      
-            }  
+            ctx.setFontSize(14)
+
+            for(let i = 0; i <= stringLenght ; i++)
+            {
+              if(count == 23)
+              {
+                ctx.fillText(text,begin_width,begin_height);
+                begin_height = begin_height + 25;
+                text = "";
+                count = 0;
+              }
+              if(i == stringLenght)
+              {
+                ctx.fillText(text,begin_width,begin_height);
+              }
+              var text = text + newtext[0];
+              count ++;
+              newtext.shift();
+            }
             ctx.setTextAlign('right')
-            ctx.setFontSize(14)      
+            ctx.setFontSize(14)
             ctx.setFillStyle('red')
-            ctx.fillText('地址:'+this.locationNow,360,580);  
+            ctx.fillText('地址:'+this.locationNow,360,580);
             ctx.stroke()
             ctx.draw()
             setTimeout(()=>{
@@ -277,15 +297,19 @@
                       })
                     }
                   })
-                } 
+                }
               })
             },500)
           },
           saveImage(){
             const ctx = wx.createCanvasContext('shareCanvas')
             this.canvasShow = true;
+            ctx.setFillStyle('#fff')
+            ctx.fillRect(0, 0, 375, 1000);
             // 底图
             ctx.drawImage(this.goLink, 0, 0, 375, 600)
+
+
             // 作者名称
             this.draw_long_text(this.visitFont,ctx,20,620)
             // ctx.setTextAlign('center')    // 文字居中
@@ -294,7 +318,7 @@
             // ctx.fillText(this.visitFont, 20 , 620 )
             // ctx.stroke()
             // ctx.draw()
-            
+
           }
         },
         created() {
