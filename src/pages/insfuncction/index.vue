@@ -31,6 +31,7 @@
       <div class="locationChange" v-show="isClickrulo">
         <button @click="saveImage">保存相册</button>
         <canvas canvas-id="shareCanvas"  style="background-color:white" :class="['none',{show:canvasShow}]"/>
+        <div :class="['none',{showDiv:canvasShow}]"></div>
       </div>
       <card :text="motto"></card>
     </div>
@@ -126,7 +127,17 @@
     }
     .show{
       width: 375px;
-      height: 800px;
+      height: 600px;
+      position: absolute;
+      z-index: 10;
+      display: block;
+    }
+    .showDiv{
+      width: 375px;
+      height: 600px;
+      position: absolute;
+      background: #fff;
+      z-index: 11;
       display: block;
     }
     .locationChange{
@@ -230,6 +241,7 @@
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success:(res)=> {
                   // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  console.log(res)
                   this.goLink = res.tempFilePaths
                 }
               })
@@ -280,14 +292,13 @@
             ctx.setTextAlign('right')
             ctx.setFontSize(14)
             ctx.setFillStyle('red')
-            ctx.fillText('地址:'+this.locationNow,360,580);
+            ctx.fillText('地址:'+this.locationNow,340,380);
             ctx.stroke()
             ctx.draw()
             setTimeout(()=>{
               wx.canvasToTempFilePath({
                 canvasId: 'shareCanvas',
                 success: (res) =>{
-                  console.log(res.tempFilePath)
                   wx.saveImageToPhotosAlbum({
                     filePath: res.tempFilePath,
                     success:(res) =>{
@@ -295,6 +306,9 @@
                       wx.showToast({
                           title: '已保存到相册'
                       })
+                    },
+                    fail:(res) =>{
+                      this.canvasShow = false;
                     }
                   })
                 }
@@ -305,13 +319,18 @@
             const ctx = wx.createCanvasContext('shareCanvas')
             this.canvasShow = true;
             ctx.setFillStyle('#fff')
-            ctx.fillRect(0, 0, 375, 1000);
+            ctx.fillRect(0, 0, 375, 600);
             // 底图
-            ctx.drawImage(this.goLink, 0, 0, 375, 600)
-
+            wx.getImageInfo({
+              src: typeof(this.goLink)=='string'?this.goLink:this.goLink[0],
+              success:(res)=>{
+                ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 0, 335, 400)
+                this.draw_long_text(this.visitFont,ctx,20,420)
+              }
+            })
 
             // 作者名称
-            this.draw_long_text(this.visitFont,ctx,20,620)
+            
             // ctx.setTextAlign('center')    // 文字居中
             // ctx.setFillStyle('#000000')  // 文字颜色：黑色
             // ctx.setFontSize(14)         // 文字字号：22px
