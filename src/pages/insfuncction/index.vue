@@ -31,7 +31,7 @@
       <div class="locationChange" v-show="isClickrulo">
         <button @click="saveImage">保存相册</button>
         <canvas canvas-id="shareCanvas"  style="background-color:white" :class="['none',{show:canvasShow}]"/>
-        <div :class="['none',{showDiv:canvasShow}]"></div>
+        <cover-view :class="['none',{showDiv:canvasShow}]"></cover-view>
       </div>
       <card :text="motto"></card>
     </div>
@@ -44,6 +44,7 @@
     position:relative;
     width:100%;
     height:100%;
+    z-index: 20;
     .bigImg{
       padding: 10px 20px;
       display: block;
@@ -127,17 +128,17 @@
     }
     .show{
       width: 375px;
-      height: 600px;
+      height: 650px;
       position: absolute;
       z-index: 10;
       display: block;
     }
     .showDiv{
       width: 375px;
-      height: 600px;
+      height: 650px;
       position: absolute;
       background: #fff;
-      z-index: 11;
+      z-index: 15;
       display: block;
     }
     .locationChange{
@@ -313,19 +314,19 @@
                   })
                 }
               })
-            },500)
+            },200)
           },
           saveImage(){
             const ctx = wx.createCanvasContext('shareCanvas')
             this.canvasShow = true;
             ctx.setFillStyle('#fff')
-            ctx.fillRect(0, 0, 375, 600);
+            ctx.fillRect(0, 0, 375, 650);
             // 底图
             wx.getImageInfo({
               src: typeof(this.goLink)=='string'?this.goLink:this.goLink[0],
               success:(res)=>{
-                ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 0, 335, 400)
-                this.draw_long_text(this.visitFont,ctx,20,420)
+                ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 20, 335, 400)
+                this.draw_long_text(this.visitFont,ctx,20,440)
               }
             })
 
