@@ -4,7 +4,7 @@
         <img :src="item.imgUrl">
         <p class="intrstor-text">{{item.text}}</p>
       </div>
-      <button @click="touristLink">到此一游</button>
+      <button @click="touristLink">分享足迹</button>
     </div>
 </template>
 
@@ -16,12 +16,10 @@
     padding: 20px 50px;
     font-size: 14px;
     .instructor-text-pic {
-    /*padding:10px 20px;*/
     img {
       margin: 0 auto;
       vertical-align: middle;
       padding: 5px 10px;
-     /*width: 99%;*/
     }
       .intrstor-text {
         font-size: 14px;

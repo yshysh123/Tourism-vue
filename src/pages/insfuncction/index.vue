@@ -1,10 +1,12 @@
 <template>
     <div class="vist-function">
       <img class="bigImg" :src="goLink">
-      <p class="visit-font">
-        <span class="location">地址:{{locationNow}}</span>
-        {{visitFont}}
-      </p>
+      <div class="visit-font">
+        <div class="visti-font-opacity">
+          <i class="icon-dizhi iconfont iconvist"></i><span class="location">{{locationNow}}</span>
+        </div>
+        <p>{{visitFont}}</p>
+      </div>
       <div class="imgChange" v-show="isClickrule">
         <ul style="overflow:hidden">
           <li v-for="(item,index) in pics" :key="index" @click="changeImg(item,index)">
@@ -45,12 +47,34 @@
     width:100%;
     height:100%;
     z-index: 20;
+  .visit-font {
+    width:100%;
+    .visti-font-opacity {
+      position: absolute;
+      width:100px;
+      background-color: #000;
+      opacity: 0.6;
+      top:-40px;
+      right:15%;
+      height:30px;
+      line-height:30px;
+      .iconvist{
+        color:#fff;
+      }
+    }
+    p{
+      padding-right: 50px;
+    }
+  }
     .bigImg{
-      padding: 10px 20px;
+      /*padding: 10px 20px;*/
+      padding: 10px 0;
       display: block;
       vertical-align: middle;
       margin: 0 auto;
       position: relative;
+      width: 355px;
+
     }
 
     .imgChange{
@@ -155,15 +179,20 @@
       }
     }
   .visit-font{
-      /*padding: 10px 20px 10px 10px;*/
-      padding: 10px 20px;
+      padding: 10px 25px;
       position: relative;
+
       .location{
         position: absolute;
-        top: -30px;
-        right: 50px;
-        font-weight: 900;
-        color: red;
+        margin-left:20px;
+        margin-top:-18px;
+        font-weight: 800;
+        color:#fff;
+        width:90px;
+        height:20px;
+        font-size:12px;
+        line-height:7px;
+
       }
     }
 
@@ -331,7 +360,7 @@
             })
 
             // 作者名称
-            
+
             // ctx.setTextAlign('center')    // 文字居中
             // ctx.setFillStyle('#000000')  // 文字颜色：黑色
             // ctx.setFontSize(14)         // 文字字号：22px

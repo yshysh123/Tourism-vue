@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "wxe282d939f71b5daa",
-	"projectname": "fgh111",
+	"projectname": "pdp",
 	"condition": {
 		"search": {
 			"current": -1,

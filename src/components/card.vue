@@ -2,8 +2,8 @@
   <div class="visite-bottom-style">
     <div class="visite-bottom-style-card">
      <i class="icon-21 iconfont iconWidth" :class="isClickrule ? 'blueColor':''" @click="phoneto"></i>
-     <i class="icon-T iconfont iconWidth" :class="isClickrulr ? 'blueColor':''" @click="edite"></i>
-     <i class="icon-dingwei iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></i>
+     <i class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></i>
+     <i class="icon-dizhi iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></i>
      <i class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></i>
      <button open-type="share">分享</button>
     </div>
@@ -21,16 +21,14 @@ export default {
     position : relative;
     width:100%;
     .visite-bottom-style-card {
-      /*position : absolute;*/
       position: fixed;
-      /*bottom : -250px;*/
       bottom: 0;
       left: 0px;
       background-color: #000;
       color: #fff;
       width: 100%;
-      height: 50px;
-      line-height: 50px;
+      height: 45px;
+      line-height: 45px;
       z-index: 100;
       i{
         display: inline-block;
@@ -42,7 +40,9 @@ export default {
         width: 20%;
         height: 100%;
         text-align: center;
-        border-right:1px solid #ccc;
+      }
+      .iconWidthft {
+        font-size: 18px;
       }
       .lastIcon{
         width: 20%;

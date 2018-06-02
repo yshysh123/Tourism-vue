@@ -1,12 +1,12 @@
 const state = {
     boards: [
       { key: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527272335&di=4a9766cf1af71e88b205ad1c9721c260&imgtype=jpg&er=1&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150128%2F0007020160374237_b.jpg'},
-      { key: require('../../../static/images/img1.jpg')},
       { key: require('../../../static/images/img2.jpg')},
       { key: require('../../../static/images/img3.jpg')},
       { key: require('../../../static/images/img4.jpg')},
       { key: require('../../../static/images/img5.jpg')},
       { key: require('../../../static/images/img6.jpg')},
+      { key: require('../../../static/images/img7.jpg')},
     ],
     words:[
       '佛香阁是北京市颐和园的主体建筑，建筑在万寿山前山高20米的方形台基上，南对昆明湖，背靠智慧海，以它为中心的各建筑群严整而对称地向两翼展开，形成众星捧月之势，气派相当宏伟。佛香阁高41米，8面3层4重檐，阁内有8根巨大铁梨木擎天柱，结构相当复杂，为古典建筑精品。',
