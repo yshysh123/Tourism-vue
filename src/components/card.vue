@@ -90,13 +90,6 @@ export default {
         return this.$store.state.board.isClickrulo
       }
     },
-    /*onShareAppMessage(res){
-      return {
-        title: '我获得22分，快来一起掌握基础音阶知识吧！',
-        path: '/pages/index/index',
-        imageUrl: 'https://wechat.dddog.com.cn/static/wescale.jpg'
-      }
-    },*/
     methods: {
       shareVist(){
 
@@ -106,25 +99,32 @@ export default {
         this.$store.state.board.isClickrulr = false;
         this.$store.state.board.isClickruly = false;
         this.$store.state.board.isClickrulo = false;
-
+        const url = '../insfuncction/main'
+        wx.redirectTo({ url })
       },
       edite() {
         this.$store.state.board.isClickrulr = true;
         this.$store.state.board.isClickrule = false;
         this.$store.state.board.isClickruly = false;
         this.$store.state.board.isClickrulo = false;
+        const url = '../insfuncction/main'
+        wx.redirectTo({ url })
       },
       place() {
-        this.$store.state.board.isClickruly = true;
         this.$store.state.board.isClickrulr = false;
         this.$store.state.board.isClickrule = false;
+        this.$store.state.board.isClickruly = true;
         this.$store.state.board.isClickrulo = false;
+        const url = '../editWord/main'
+        wx.redirectTo({ url })
       },
       lookSee() {
-        this.$store.state.board.isClickrulo = true;
         this.$store.state.board.isClickrulr = false;
-        this.$store.state.board.isClickruly = false;
         this.$store.state.board.isClickrule = false;
+        this.$store.state.board.isClickruly = false;
+        this.$store.state.board.isClickrulo = true;
+        const url = '../showPages/main'
+        wx.redirectTo({ url })
       }
     },
     created() {

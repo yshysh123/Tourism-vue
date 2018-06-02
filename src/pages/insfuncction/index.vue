@@ -1,11 +1,11 @@
 <template>
     <div class="vist-function">
-      <img class="bigImg" :src="goLink">
+      <img class="bigImg" :src="getGoLink">
       <div class="visit-font">
         <div class="visti-font-opacity">
           <i class="icon-dizhi iconfont iconvist"></i><span class="location">{{locationNow}}</span>
         </div>
-        <p>{{visitFont}}</p>
+        <p>{{getVisitFont}}</p>
       </div>
       <div class="imgChange" v-show="isClickrule">
         <ul style="overflow:hidden">
@@ -22,19 +22,19 @@
           </li>
         </ul>
       </div>
-      <div class="locationChange" v-show="isClickruly">
+      <!-- <div class="locationChange" v-show="isClickruly">
         <ul style="overflow:hidden">
           <li v-for="(item,index) in locations" :key="index" @click="changeLocation(item,index)">
             <i :class="['not_icon',{style:index == selectedLocations}]"></i>
             {{item}}
           </li>
         </ul>
-      </div>
-      <div class="locationChange" v-show="isClickrulo">
+      </div> -->
+      <!-- <div class="locationChange" v-show="isClickrulo">
         <button @click="saveImage">保存相册</button>
         <canvas canvas-id="shareCanvas"  style="background-color:white" :class="['none',{show:canvasShow}]"/>
         <cover-view :class="['none',{showDiv:canvasShow}]"></cover-view>
-      </div>
+      </div> -->
       <card :text="motto"></card>
     </div>
 </template>
@@ -221,22 +221,6 @@
               canvasShow:false
             }
         },
-      onShareAppMessage(res){
-        return {
-          title: '分享获得优惠券！',
-          path: '/pages/index/main',
-          imageUrl: this.imgSrc,
-          success: function(res) {
-           wx.navigateTo({
-             url: '/pages/savePage/main'
-           })
-            // 转发成功
-          },
-          fail: function(res) {
-            // 转发失败
-          }
-        }
-      },
         computed: {
           pics(){
             this.imgSrc = this.$store.state.board.boards[0]
@@ -259,6 +243,12 @@
           },
           isClickrulo(){
             return this.$store.state.board.isClickrulo
+          },
+          getGoLink(){
+            return this.$store.state.board.goLink
+          },
+          getVisitFont(){
+            return this.$store.state.board.visitFont
           }
         },
         methods: {
@@ -272,109 +262,109 @@
                 success:(res)=> {
                   // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                   console.log(res)
-                  this.goLink = res.tempFilePaths
+                  this.$store.state.board.goLink = res.tempFilePaths
                 }
               })
             }else{
               this.selectedPics = index
-              this.goLink = item.key
+              this.$store.state.board.goLink = item.key
             }
           },
           changeWord(item,index){
-            this.visitFont = item
+            this.$store.state.board.visitFont = item
             this.selectedWords = index
           },
           changeLocation(item,index){
             this.locationNow = item
             this.selectedLocations = index
           },
-          draw_long_text(longtext,ctx,begin_width,begin_height)
-          {
+          // draw_long_text(longtext,ctx,begin_width,begin_height)
+          // {
 
-            var linelenght = 20;
-            var text = "";
-            var count = 0;
-            var begin_width = begin_width;
-            var begin_height = begin_height;
-            var stringLenght = longtext.length;
-            var newtext = longtext.split("");
-            ctx.setTextAlign('left')    // 文字居中
-            ctx.setFillStyle('#000000')  // 文字颜色：黑色
-            ctx.setFontSize(14)
+          //   var linelenght = 20;
+          //   var text = "";
+          //   var count = 0;
+          //   var begin_width = begin_width;
+          //   var begin_height = begin_height;
+          //   var stringLenght = longtext.length;
+          //   var newtext = longtext.split("");
+          //   ctx.setTextAlign('left')    // 文字居中
+          //   ctx.setFillStyle('#000000')  // 文字颜色：黑色
+          //   ctx.setFontSize(14)
 
-            for(let i = 0; i <= stringLenght ; i++)
-            {
-              if(count == 23)
-              {
-                ctx.fillText(text,begin_width,begin_height);
-                begin_height = begin_height + 25;
-                text = "";
-                count = 0;
-              }
-              if(i == stringLenght)
-              {
-                ctx.fillText(text,begin_width,begin_height);
-              }
-              var text = text + newtext[0];
-              count ++;
-              newtext.shift();
-            }
-            ctx.setTextAlign('right')
-            ctx.setFontSize(14)
-            ctx.setFillStyle('red')
-            ctx.fillText('地址:'+this.locationNow,340,380);
-            ctx.stroke()
-            ctx.draw()
-            setTimeout(()=>{
-              wx.canvasToTempFilePath({
-                canvasId: 'shareCanvas',
-                success: (res) =>{
-                  wx.saveImageToPhotosAlbum({
-                    filePath: res.tempFilePath,
-                    success:(res) =>{
-                      this.canvasShow = false;
-                      wx.showToast({
-                          title: '已保存到相册'
-                      })
-                    },
-                    fail:(res) =>{
-                      this.canvasShow = false;
-                    }
-                  })
-                }
-              })
-            },200)
-          },
-          saveImage(){
-            const ctx = wx.createCanvasContext('shareCanvas')
-            this.canvasShow = true;
-            ctx.setFillStyle('#fff')
-            ctx.fillRect(0, 0, 375, 650);
-            // 底图
-            wx.getImageInfo({
-              src: typeof(this.goLink)=='string'?this.goLink:this.goLink[0],
-              success:(res)=>{
-                ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 20, 335, 400)
-                this.draw_long_text(this.visitFont,ctx,20,440)
-              }
-            })
+          //   for(let i = 0; i <= stringLenght ; i++)
+          //   {
+          //     if(count == 23)
+          //     {
+          //       ctx.fillText(text,begin_width,begin_height);
+          //       begin_height = begin_height + 25;
+          //       text = "";
+          //       count = 0;
+          //     }
+          //     if(i == stringLenght)
+          //     {
+          //       ctx.fillText(text,begin_width,begin_height);
+          //     }
+          //     var text = text + newtext[0];
+          //     count ++;
+          //     newtext.shift();
+          //   }
+          //   ctx.setTextAlign('right')
+          //   ctx.setFontSize(14)
+          //   ctx.setFillStyle('red')
+          //   ctx.fillText('地址:'+this.locationNow,340,380);
+          //   ctx.stroke()
+          //   ctx.draw()
+          //   setTimeout(()=>{
+          //     wx.canvasToTempFilePath({
+          //       canvasId: 'shareCanvas',
+          //       success: (res) =>{
+          //         wx.saveImageToPhotosAlbum({
+          //           filePath: res.tempFilePath,
+          //           success:(res) =>{
+          //             this.canvasShow = false;
+          //             wx.showToast({
+          //                 title: '已保存到相册'
+          //             })
+          //           },
+          //           fail:(res) =>{
+          //             this.canvasShow = false;
+          //           }
+          //         })
+          //       }
+          //     })
+          //   },200)
+          // },
+          // saveImage(){
+          //   const ctx = wx.createCanvasContext('shareCanvas')
+          //   this.canvasShow = true;
+          //   ctx.setFillStyle('#fff')
+          //   ctx.fillRect(0, 0, 375, 650);
+          //   // 底图
+          //   wx.getImageInfo({
+          //     src: typeof(this.getGoLink)=='string'?this.getGoLink:this.getGoLink[0],
+          //     success:(res)=>{
+          //       ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 20, 335, 400)
+          //       this.draw_long_text(this.getVisitFont,ctx,20,440)
+          //     }
+          //   })
 
-            // 作者名称
+          //   // 作者名称
 
-            // ctx.setTextAlign('center')    // 文字居中
-            // ctx.setFillStyle('#000000')  // 文字颜色：黑色
-            // ctx.setFontSize(14)         // 文字字号：22px
-            // ctx.fillText(this.visitFont, 20 , 620 )
-            // ctx.stroke()
-            // ctx.draw()
+          //   // ctx.setTextAlign('center')    // 文字居中
+          //   // ctx.setFillStyle('#000000')  // 文字颜色：黑色
+          //   // ctx.setFontSize(14)         // 文字字号：22px
+          //   // ctx.fillText(this.visitFont, 20 , 620 )
+          //   // ctx.stroke()
+          //   // ctx.draw()
 
-          }
+          // }
         },
         created() {
         },
         mounted() {
-          this.visitFont = this.$store.state.board.words[0]
-          this.goLink = this.$store.state.board.boards[1].key
+          this.$store.state.board.visitFont = this.$store.state.board.words[0]
+          this.$store.state.board.goLink = this.$store.state.board.boards[1].key
           this.locationNow = this.$store.state.board.locations[0]
         },
         components: {

@@ -61,7 +61,7 @@
         methods: {
           touristLink(){
             const url = '../insfuncction/main'
-            wx.navigateTo({ url })
+            wx.redirectTo({ url })
           }
         },
         created() {

@@ -26,12 +26,12 @@ export default {
   methods: {
     bindViewTap (urls) {
       const url = '../instrustor/main'
-      wx.navigateTo({ url })
+      wx.redirectTo({ url })
 
     },
     sharefoot(){
       const url = '../insfuncction/main'
-      wx.navigateTo({ url })
+      wx.redirectTo({ url })
     },
     getUser () {
       getUserInfo().then((res)=>{
@@ -56,6 +56,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  box-sizing: border-box;
   font-size: 22px;
   width: 100%;
    height: 100%;

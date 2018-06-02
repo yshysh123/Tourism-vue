@@ -17,6 +17,8 @@ const state = {
     locations:[
       '北京','北京-佛香阁','北京-海淀区','北京-颐和园'
     ],
+    goLink:'',
+    visitFont:'',
     isClickrule: true,
     isClickrulr:false,
     isClickruly:false,

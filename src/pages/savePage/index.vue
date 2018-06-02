@@ -25,7 +25,7 @@
         methods: {
           getQuan(){
 //            const url= '../publicNum/main';
-//            wx.navigateTo({ url })
+//            wx.redirectTo({ url })
           }
         },
         created() {

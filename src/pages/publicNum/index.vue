@@ -85,7 +85,7 @@
         methods: {
           jumpFirst(){
             const url='../index/main';
-            wx.navigateTo({url})
+            wx.redirectTo({url})
           }
         },
         created() {
