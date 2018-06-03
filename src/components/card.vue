@@ -1,10 +1,10 @@
 <template>
   <div class="visite-bottom-style">
     <div class="visite-bottom-style-card">
-     <i class="icon-21 iconfont iconWidth" :class="isClickrule ? 'blueColor':''" @click="phoneto"></i>
-     <i class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></i>
-     <i class="icon-dizhi iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></i>
-     <i class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></i>
+     <div class="icon-21 iconfont iconWidth" :class="isClickrule ? 'blueColor':''" @click="phoneto"></div>
+     <div class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></div>
+     <div class="icon-dizhi iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></div>
+     <div class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></div>
      <button open-type="share">分享</button>
     </div>
   </div>
@@ -18,20 +18,20 @@ export default {
 
 <style lang="scss">
   .visite-bottom-style {
-    position : relative;
+    position: fixed;
+    z-index: 10000;
     width:100%;
+    bottom: 0;
+    left: 0px;
     .visite-bottom-style-card {
-      position: fixed;
-      bottom: 0;
-      left: 0px;
       background-color: #000;
       color: #fff;
       width: 100%;
       height: 45px;
       line-height: 45px;
-      z-index: 100;
-      i{
-        display: inline-block;
+      .iconfont{
+        line-height: 45px;
+        display: block;
         font-size: 20px;
         box-sizing: border-box;
         float:left;
@@ -57,9 +57,9 @@ export default {
         color: #fff;
         font-size: 14px;
         width: 20%;
-        height:50px;
-        line-height: 50px;
-        display:inline-block;
+        height:45px;
+        line-height: 45px;
+        display:block;
         float:right;
         border-radius: 0;
       }

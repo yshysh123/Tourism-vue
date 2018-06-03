@@ -1,7 +1,7 @@
 <template>
   <div class="vist-userInfo">
-      <canvas canvas-id="shareCanvas" :style="{ width : '100%' , height : cavHeight + 'px' }"/>
-      <card :text="motto"></card>
+    <canvas canvas-id="shareCanvas" :style="{ width : getWindowWidth , height : cavHeight + 'px' }" />
+    <card :text="motto"></card>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import card from '@/components/card'
 export default {
   data () {
     return {
-      cavHeight:600
+      cavHeight:600,
     }
   },
 
@@ -83,61 +83,50 @@ export default {
         newtext.shift();
       }
       ctx.setTextAlign('right')
-      // ctx.setFontSize(14)
-      // ctx.setFillStyle('red')
-      // ctx.fillText('地址:'+this.locationNow,340,380);
+      ctx.setFontSize(14)
+      ctx.fillText('地址:'+this.getAddress,340,this.getGoLink.length*335 + 220);
+
       ctx.stroke()
-      ctx.draw()
-      // setTimeout(()=>{
-      //   wx.canvasToTempFilePath({
-      //     canvasId: 'shareCanvas',
-      //     success: (res) =>{
-      //       wx.saveImageToPhotosAlbum({
-      //         filePath: res.tempFilePath,
-      //         success:(res) =>{
-      //           this.canvasShow = false;
-      //           wx.showToast({
-      //               title: '已保存到相册'
-      //           })
-      //         },
-      //         fail:(res) =>{
-      //           this.canvasShow = false;
-      //         }
-      //       })
-      //     }
-      //   })
-      // },200)
+      ctx.draw(true)
     },
     saveImage(){
+      let that = this;
       const ctx = wx.createCanvasContext('shareCanvas')
       ctx.setFillStyle('#fff')
-      ctx.fillRect(0, 0, 375, 650);
-      // 底图
-      wx.getImageInfo({
-        src: typeof(this.getGoLink)=='string'?this.getGoLink:this.getGoLink[0],
-        success:(res)=>{
-          ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 20, 335, 335)
-          this.draw_long_text(this.getVisitFont,ctx,20,375)
-        }
-      })
+      ctx.fillRect(0, 0, 375, this.getGoLink.length*335 + 315);
+      let getImageDraw = [];
+      this.getGoLink.forEach((item,index) => {
+        wx.getImageInfo({
+          src: item,
+          success:(res)=>{
+            ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 335*(index)+20, 335, 335)
+            that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*335+40)
+          }
+        })
+      });
     }
   },
 
   created () {
-
+// TGQBZ-5BR3P-4Y7DJ-VW22G-3HYGF-JIFVF
   },
   computed: {
     getGoLink(){
-      return this.$store.state.board.goLink
+      return this.$store.state.board.goLinks
+    },
+    getAddress(){
+      return this.$store.state.board.address
     },
     getVisitFont(){
       return this.$store.state.board.visitFont
+    },
+    getWindowWidth(){
+      return this.$store.state.board.windowWidth
     }
   },
   mounted () {
-    setTimeout(()=>{
-      this.saveImage()
-    },500)
+    this.cavHeight = this.getGoLink.length*335 + 265
+    this.saveImage()
   }
 }
 </script>
@@ -146,8 +135,10 @@ export default {
  .vist-userInfo {
   font-size: 22px;
   width: 100%;
+  position: relative;
   canvas{
-    width: 100%;
+    width: 375px;
+    margin-bottom: 45px;
   }
 }
 </style>

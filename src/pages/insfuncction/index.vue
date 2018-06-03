@@ -1,6 +1,6 @@
 <template>
     <div class="vist-function">
-      <img class="bigImg" :src="getGoLink">
+      <img v-for="(item,index) in getGoLink" :key="index" class="bigImg" :src="item" @click="previewImage(item,index)">
       <div class="visit-font">
         <div class="visti-font-opacity">
           <i class="icon-dizhi iconfont iconvist"></i><span class="location">{{locationNow}}</span>
@@ -8,11 +8,12 @@
         <p>{{getVisitFont}}</p>
       </div>
       <div class="imgChange" v-show="isClickrule">
-        <ul style="overflow:hidden">
-          <li v-for="(item,index) in pics" :key="index" @click="changeImg(item,index)">
-            <img :src="item.key" :class="{hidden:index == selectedPics}">
-          </li>
-        </ul>
+        <checkbox-group class="checkboxUl" @change="serviceValChange">  
+          <label class="checkboxLi" v-for="(item,index) in pics" :key="index" @click="changeImg(item,index)">
+            <checkbox :value="item.key" :checked="item.checked" hidden="false" />
+            <img :src="item.key" :class="{is_checked:item.checked == true}">
+          </label>
+        </checkbox-group>
       </div>
       <div class="wordChange" v-show="isClickrulr">
         <ul style="overflow:hidden">
@@ -74,15 +75,15 @@
       margin: 0 auto;
       position: relative;
       width: 355px;
-
+      height: 355px;
     }
 
     .imgChange{
       width: 100%;
-      ul{
+      .checkboxUl{
         overflow: hidden;
         padding: 10px 20px;
-        li{
+        .checkboxLi{
           width:60px;
           height:60px;
           box-sizing: border-box;
@@ -93,9 +94,10 @@
             height: 100%;
             opacity: 0.4;
           }
-          .hidden{
+          .is_checked {  
+            border: 1px solid #fe0002;  
             opacity: 1;
-          }
+          }  
         }
       }
     }
@@ -207,10 +209,7 @@
         props: [],
         data() {
             return {
-              imgSrc: '',
-              goLink:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526390630984&di=d0c4299e53a91d334a365632ad4da561&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fmw690%2F51248e24gx6ClIYbmgR95%26690',
-              visitFont:'在清朝乾隆时期（1736-1795）在此筑九层延寿塔，至第八层“奉旨停修”,改建佛香阁。1860年（咸丰十年）毁于英法' +
-              '联军，光绪时（1875-1908）在原址依样重建，供奉佛像。',
+              state:0,
               motto:'引入的组件',
               locationNow:'北京',
               selectedWords:0,
@@ -223,7 +222,6 @@
         },
         computed: {
           pics(){
-            this.imgSrc = this.$store.state.board.boards[0]
             return this.$store.state.board.boards
           },
           words(){
@@ -245,15 +243,28 @@
             return this.$store.state.board.isClickrulo
           },
           getGoLink(){
-            return this.$store.state.board.goLink
+            return this.$store.state.board.goLinks
           },
           getVisitFont(){
             return this.$store.state.board.visitFont
           }
         },
         methods: {
+          serviceValChange(e){
+            var checkArr = e.target.value;
+            if (checkArr.join(',').indexOf('timgsa.baidu.com')!= -1){
+              return
+            }
+            this.$store.state.board.boards.forEach(item => {
+              if (checkArr.join(',').indexOf(item.key)!= -1) {  
+                item.checked = true;  
+              } else {  
+                item.checked = false;  
+              }  
+            });
+            this.$store.state.board.goLinks = checkArr
+          },
           changeImg(item,index){
-            this.imgSrc = item.key
             if(index==0){
               wx.chooseImage({
                 count: 1, // 默认9
@@ -261,14 +272,22 @@
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success:(res)=> {
                   // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                  console.log(res)
                   this.$store.state.board.goLink = res.tempFilePaths
+                  this.$store.state.board.goLinks.push(res.tempFilePaths[0])
+                  this.$store.state.board.boards.push({key:res.tempFilePaths[0],checked:true})
                 }
               })
-            }else{
-              this.selectedPics = index
-              this.$store.state.board.goLink = item.key
             }
+            // else{
+            //   this.selectedPics = index
+            //   this.$store.state.board.goLink = item.key
+            //   this.$store.state.board.goLinks.forEach((item2,index2)=>{
+            //     if(item2 == item.key){
+            //       this.$store.state.board.goLinks.splice(index2,1)
+            //     }
+            //   })
+            //   this.$store.state.board.goLinks.push(item.key)
+            // }
           },
           changeWord(item,index){
             this.$store.state.board.visitFont = item
@@ -278,94 +297,27 @@
             this.locationNow = item
             this.selectedLocations = index
           },
-          // draw_long_text(longtext,ctx,begin_width,begin_height)
-          // {
-
-          //   var linelenght = 20;
-          //   var text = "";
-          //   var count = 0;
-          //   var begin_width = begin_width;
-          //   var begin_height = begin_height;
-          //   var stringLenght = longtext.length;
-          //   var newtext = longtext.split("");
-          //   ctx.setTextAlign('left')    // 文字居中
-          //   ctx.setFillStyle('#000000')  // 文字颜色：黑色
-          //   ctx.setFontSize(14)
-
-          //   for(let i = 0; i <= stringLenght ; i++)
-          //   {
-          //     if(count == 23)
-          //     {
-          //       ctx.fillText(text,begin_width,begin_height);
-          //       begin_height = begin_height + 25;
-          //       text = "";
-          //       count = 0;
-          //     }
-          //     if(i == stringLenght)
-          //     {
-          //       ctx.fillText(text,begin_width,begin_height);
-          //     }
-          //     var text = text + newtext[0];
-          //     count ++;
-          //     newtext.shift();
-          //   }
-          //   ctx.setTextAlign('right')
-          //   ctx.setFontSize(14)
-          //   ctx.setFillStyle('red')
-          //   ctx.fillText('地址:'+this.locationNow,340,380);
-          //   ctx.stroke()
-          //   ctx.draw()
-          //   setTimeout(()=>{
-          //     wx.canvasToTempFilePath({
-          //       canvasId: 'shareCanvas',
-          //       success: (res) =>{
-          //         wx.saveImageToPhotosAlbum({
-          //           filePath: res.tempFilePath,
-          //           success:(res) =>{
-          //             this.canvasShow = false;
-          //             wx.showToast({
-          //                 title: '已保存到相册'
-          //             })
-          //           },
-          //           fail:(res) =>{
-          //             this.canvasShow = false;
-          //           }
-          //         })
-          //       }
-          //     })
-          //   },200)
-          // },
-          // saveImage(){
-          //   const ctx = wx.createCanvasContext('shareCanvas')
-          //   this.canvasShow = true;
-          //   ctx.setFillStyle('#fff')
-          //   ctx.fillRect(0, 0, 375, 650);
-          //   // 底图
-          //   wx.getImageInfo({
-          //     src: typeof(this.getGoLink)=='string'?this.getGoLink:this.getGoLink[0],
-          //     success:(res)=>{
-          //       ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 20, 335, 400)
-          //       this.draw_long_text(this.getVisitFont,ctx,20,440)
-          //     }
-          //   })
-
-          //   // 作者名称
-
-          //   // ctx.setTextAlign('center')    // 文字居中
-          //   // ctx.setFillStyle('#000000')  // 文字颜色：黑色
-          //   // ctx.setFontSize(14)         // 文字字号：22px
-          //   // ctx.fillText(this.visitFont, 20 , 620 )
-          //   // ctx.stroke()
-          //   // ctx.draw()
-
-          // }
+          previewImage(item,index){
+            console.log(item)
+            wx.getImageInfo({
+              src: item,
+              success:(res)=>{
+                wx.previewImage({  
+                  // current: item, // 当前显示图片的http链接  
+                  urls: [res.path.split('/')[0]==='static'?'/'+res.path:res.path], // 需要预览的图片http链接列表  
+                  success:(res)=>{
+                  }
+                })  
+              }
+            })
+            
+          }
         },
         created() {
         },
         mounted() {
-          this.$store.state.board.visitFont = this.$store.state.board.words[0]
           this.$store.state.board.goLink = this.$store.state.board.boards[1].key
-          this.locationNow = this.$store.state.board.locations[0]
+          this.locationNow = this.$store.state.board.address
         },
         components: {
           card

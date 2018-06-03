@@ -22,6 +22,11 @@ export default {
   padding: 200rpx 0;
   box-sizing: border-box;
 }
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
 /* this rule will be remove */
 * {
   transition: width 2s;

@@ -46,6 +46,34 @@ export default {
       console.log(res)
       this.getUser()
     })
+  },
+  mounted(){
+    wx.getSystemInfo({ 
+      success:(res)=> {
+        this.$store.state.board.windowWidth  = res.windowWidth
+      } 
+    })
+    var QQMapWX = require('../../../static/qqmap-wx-jssdk.min.js');
+    qqmapsdk = new QQMapWX({
+      key: 'TGQBZ-5BR3P-4Y7DJ-VW22G-3HYGF-JIFVF'
+    });
+    var qqmapsdk;
+    let that = this;
+    wx.getLocation({
+      type:'gcj02',
+      altitude:true,
+      success:(res)=>{
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          },
+          success:(addressRes)=> {
+            this.$store.state.board.address = addressRes.result.formatted_addresses.recommend;
+          }
+        })
+      }
+    })
   }
 }
 </script>
