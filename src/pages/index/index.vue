@@ -83,7 +83,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
   font-size: 22px;
   width: 100%;

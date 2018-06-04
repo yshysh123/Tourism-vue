@@ -22,28 +22,38 @@ export default {
   // 这个字段走 app.json
   config: {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
-    pages: ["pages/logs/main", "^pages/index/main","pages/instrustor/main","pages/insfuncction/main","pages/savePage/main","pages/publicNum/main","pages/editWord/main","pages/showPages/main",],
+    pages: ["pages/logs/main", "^pages/index/main","pages/instrustor/main","pages/deleteImage/main","pages/insfuncction/main","pages/savePage/main","pages/publicNum/main","pages/editWord/main","pages/showPages/main",],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
       navigationBarTitleText: "景区信息",
       navigationBarTextStyle: "black"
-    }
+    },
     // tabBar: {
     //   color: '#999',
     //   selectedColor: '#d22222',
-    //   backgroundColor: '#fff',
+    //   backgroundColor: '#000',
     //   borderStyle: 'black',
     //   list: [{
-    //     pagePath: 'pages/news/list',
+    //     pagePath: 'pages/index/main',
     //     text: '资讯',
-    //     iconPath: 'static/assets/news.png',
-    //     selectedIconPath: 'static/assets/news-active.png'
+    //     iconPath: 'static/images/icon1.png',
+    //     selectedIconPath: 'static/images/icon2.png'
     //   }, {
-    //     pagePath: 'pages/quanzi/list',
-    //     text: '圈子',
-    //     iconPath: 'static/assets/quanzi.png',
-    //     selectedIconPath: 'static/assets/quanzi-active.png'
+    //     pagePath: 'pages/insfuncction/main',
+    //     text: '圈1子',
+    //     iconPath: 'static/images/icon1.png',
+    //     selectedIconPath: 'static/images/icon2.png'
+    //   }, {
+    //     pagePath: 'pages/editWord/main',
+    //     text: '圈2子',
+    //     iconPath: 'static/images/icon1.png',
+    //     selectedIconPath: 'static/images/icon2.png'
+    //   }, {
+    //     pagePath: 'pages/showPages/main',
+    //     text: '圈3子',
+    //     iconPath: 'static/images/icon1.png',
+    //     selectedIconPath: 'static/images/icon2.png'
     //   }]
     // }
   }

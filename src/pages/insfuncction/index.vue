@@ -56,7 +56,7 @@
       background-color: #000;
       opacity: 0.6;
       top:-40px;
-      right:15%;
+      right:70px;
       height:30px;
       line-height:30px;
       .iconvist{
@@ -74,8 +74,8 @@
       vertical-align: middle;
       margin: 0 auto;
       position: relative;
-      width: 355px;
-      height: 355px;
+      width: 335px;
+      height: 335px;
     }
 
     .imgChange{
@@ -251,6 +251,24 @@
         },
         methods: {
           serviceValChange(e){
+            if(e.target.value.length<1){
+              wx.showToast({  
+                title: '最少选择一张',  
+                icon: 'none',  
+                mask:true,
+                duration: 1500  
+              })  
+              return
+            }
+            if(e.target.value.length>12){
+              wx.showToast({  
+                title: '最多预览12张',  
+                icon: 'none',  
+                mask:true,
+                duration: 1500  
+              })  
+              return
+            }
             var checkArr = e.target.value;
             if (checkArr.join(',').indexOf('timgsa.baidu.com')!= -1){
               return
@@ -298,19 +316,26 @@
             this.selectedLocations = index
           },
           previewImage(item,index){
-            console.log(item)
-            wx.getImageInfo({
-              src: item,
-              success:(res)=>{
-                wx.previewImage({  
-                  // current: item, // 当前显示图片的http链接  
-                  urls: [res.path.split('/')[0]==='static'?'/'+res.path:res.path], // 需要预览的图片http链接列表  
-                  success:(res)=>{
-                  }
-                })  
+            this.$store.state.board.boards.forEach((item2,index2)=>{
+              if(item2.key == item){
+                this.$store.state.board.chooseIndex = index2
               }
             })
-            
+            this.$store.state.board.chooseIndexNow = index
+            this.$store.state.board.chooseImage = item
+            const url = '../deleteImage/main'
+            wx.redirectTo({ url })
+            // wx.getImageInfo({
+            //   src: item,
+            //   success:(res)=>{
+            //     wx.previewImage({  
+            //       // current: item, // 当前显示图片的http链接  
+            //       urls: [res.path.split('/')[0]==='static'?'/'+res.path:res.path], // 需要预览的图片http链接列表  
+            //       success:(res)=>{
+            //       }
+            //     })  
+            //   }
+            // })
           }
         },
         created() {

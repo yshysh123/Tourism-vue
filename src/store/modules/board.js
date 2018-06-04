@@ -1,6 +1,6 @@
 const state = {
     boards: [
-      { key: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527272335&di=4a9766cf1af71e88b205ad1c9721c260&imgtype=jpg&er=1&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150128%2F0007020160374237_b.jpg',checked:false},
+      { key: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527964375804&di=c6f8ed52f6bfa5166c6c71db2958f113&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fbaike%2Fw%3D268%2Fsign%3D792273edf9edab6474724ac6cf36af81%2Fa08b87d6277f9e2fda25102e1d30e924b899f380.jpg',checked:false},
       { key: require('../../../static/images/img2.jpg'),checked:true},
       { key: require('../../../static/images/img3.jpg'),checked:false},
       { key: require('../../../static/images/img4.jpg'),checked:false},
@@ -21,11 +21,15 @@ const state = {
     goLinks:[require('../../../static/images/img2.jpg')],
     address:'',
     windowWidth:0,
+    windowHeight:0,
     visitFont:'佛香阁是北京市颐和园的主体建筑，建筑在万寿山前山高20米的方形台基上，南对昆明湖，背靠智慧海，以它为中心的各建筑群严整而对称地向两翼展开，形成众星捧月之势，气派相当宏伟。佛香阁高41米，8面3层4重檐，阁内有8根巨大铁梨木擎天柱，结构相当复杂，为古典建筑精品。',
     isClickrule: true,
     isClickrulr:false,
     isClickruly:false,
-    isClickrulo:false
+    isClickrulo:false,
+    chooseImage:'',
+    chooseIndex:0,
+    chooseIndexNow:0,
 }
 
 export default {

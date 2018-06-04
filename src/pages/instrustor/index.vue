@@ -13,20 +13,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 50px;
+    padding: 20px 20px;
+    width: 100%;
+    box-sizing: border-box;
     font-size: 14px;
     .instructor-text-pic {
     img {
       margin: 0 auto;
       vertical-align: middle;
-      padding: 5px 10px;
+      padding: 5px 0;
+      width: 335px;
+      height:335px;
     }
       .intrstor-text {
         font-size: 14px;
-        padding: 10px 20px;
+        padding: 10px 0;
       }
     }
   button {
+    width: 100px;
     background-color: #0099ff;
     color: #fff;
     font-size: 14px;

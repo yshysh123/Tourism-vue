@@ -5,8 +5,12 @@ export default {
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
-    console.log('app created and cache logs by setStorageSync')
+    wx.getSystemInfo({ 
+      success:(res)=> {
+        this.$store.state.board.windowWidth  = res.windowWidth
+        this.$store.state.board.windowHeight  = res.windowHeight
+      } 
+    })
   }
 }
 </script>

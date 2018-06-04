@@ -1,6 +1,7 @@
 <template>
   <div class="vist-userInfo">
-    <canvas canvas-id="shareCanvas" :style="{ width : getWindowWidth , height : cavHeight + 'px' }" />
+    <canvas canvas-id="shareCanvas" :style="{ width : getWindowWidth + 'px', height : cavHeight + 'px' }" >
+    </canvas>
     <card :text="motto"></card>
   </div>
 </template>
@@ -84,7 +85,7 @@ export default {
       }
       ctx.setTextAlign('right')
       ctx.setFontSize(14)
-      ctx.fillText('地址:'+this.getAddress,340,this.getGoLink.length*335 + 220);
+      ctx.fillText('地址:'+this.getAddress,(this.$store.state.board.windowWidth-35),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + 220);
 
       ctx.stroke()
       ctx.draw(true)
@@ -93,14 +94,14 @@ export default {
       let that = this;
       const ctx = wx.createCanvasContext('shareCanvas')
       ctx.setFillStyle('#fff')
-      ctx.fillRect(0, 0, 375, this.getGoLink.length*335 + 315);
+      ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (this.$store.state.board.windowWidth-60));
       let getImageDraw = [];
       this.getGoLink.forEach((item,index) => {
         wx.getImageInfo({
           src: item,
           success:(res)=>{
-            ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, 335*(index)+20, 335, 335)
-            that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*335+40)
+            ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, (this.$store.state.board.windowWidth-40)*(index)+20, (this.$store.state.board.windowWidth-40), (this.$store.state.board.windowWidth-40))
+            that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*(this.$store.state.board.windowWidth-40)+40)
           }
         })
       });
@@ -122,10 +123,13 @@ export default {
     },
     getWindowWidth(){
       return this.$store.state.board.windowWidth
+    },
+    getWindowHeight(){
+      return this.$store.state.board.windowHeight
     }
   },
   mounted () {
-    this.cavHeight = this.getGoLink.length*335 + 265
+    this.cavHeight = this.getGoLink.length*(this.$store.state.board.windowWidth-40) + 260
     this.saveImage()
   }
 }
@@ -135,10 +139,8 @@ export default {
  .vist-userInfo {
   font-size: 22px;
   width: 100%;
-  position: relative;
   canvas{
-    width: 375px;
-    margin-bottom: 45px;
+    margin-bottom:45px;
   }
 }
 </style>

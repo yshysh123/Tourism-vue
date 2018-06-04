@@ -1,5 +1,5 @@
 <template>
-  <div class="visite-bottom-style">
+  <view class="visite-bottom-style">
     <div class="visite-bottom-style-card">
      <div class="icon-21 iconfont iconWidth" :class="isClickrule ? 'blueColor':''" @click="phoneto"></div>
      <div class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></div>
@@ -7,7 +7,7 @@
      <div class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></div>
      <button open-type="share">分享</button>
     </div>
-  </div>
+  </view>
 </template>
 
 <script>
@@ -19,6 +19,7 @@ export default {
 <style lang="scss">
   .visite-bottom-style {
     position: fixed;
+    height: 35px;
     z-index: 10000;
     width:100%;
     bottom: 0;
@@ -27,10 +28,10 @@ export default {
       background-color: #000;
       color: #fff;
       width: 100%;
-      height: 45px;
-      line-height: 45px;
+      height: 35px;
+      line-height: 35px;
       .iconfont{
-        line-height: 45px;
+        line-height: 35px;
         display: block;
         font-size: 20px;
         box-sizing: border-box;
@@ -57,8 +58,8 @@ export default {
         color: #fff;
         font-size: 14px;
         width: 20%;
-        height:45px;
-        line-height: 45px;
+        height:35px;
+        line-height: 35px;
         display:block;
         float:right;
         border-radius: 0;
