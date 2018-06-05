@@ -85,16 +85,24 @@ export default {
       }
       ctx.setTextAlign('right')
       ctx.setFontSize(14)
-      ctx.fillText('地址:'+this.getAddress,(this.$store.state.board.windowWidth-35),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + 220);
+      ctx.fillText('地址:'+this.getAddress,(this.$store.state.board.windowWidth-35),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+2)*25);
 
-      ctx.stroke()
+      ctx.setFillStyle('orange')
+      ctx.fillRect(0, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25, this.$store.state.board.windowWidth, 140)
+      //画二维码
+      ctx.drawImage('/static/images/code.jpg', this.$store.state.board.windowWidth/2-40, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25 +20 , 80 , 80)
+      //二维码文字
+      ctx.setFillStyle('#fff')
+      ctx.setFontSize(14)
+      ctx.setTextAlign('center')
+      ctx.fillText('扫描上方二维码进入小程序',(this.$store.state.board.windowWidth/2),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25 +120);
       ctx.draw(true)
     },
     saveImage(){
       let that = this;
       const ctx = wx.createCanvasContext('shareCanvas')
       ctx.setFillStyle('#fff')
-      ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (this.$store.state.board.windowWidth-60));
+      ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (that.getVisitFont.length/23+3)*25 + 140);
       let getImageDraw = [];
       this.getGoLink.forEach((item,index) => {
         wx.getImageInfo({
@@ -129,7 +137,15 @@ export default {
     }
   },
   mounted () {
-    this.cavHeight = this.getGoLink.length*(this.$store.state.board.windowWidth-40) + 260
+    this.cavHeight = this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (this.getVisitFont.length/23+3)*25 + 140
+    var pages = getCurrentPages() 
+    var currentPage = pages[pages.length-1]
+    var url = currentPage.route 
+    if(url==="pages/showPages/main"){
+      this.$store.state.board.isabled = false;
+    }else{
+      this.$store.state.board.isabled = true;
+    }
     this.saveImage()
   }
 }
@@ -140,7 +156,7 @@ export default {
   font-size: 22px;
   width: 100%;
   canvas{
-    margin-bottom:45px;
+    margin-bottom:35px;
   }
 }
 </style>

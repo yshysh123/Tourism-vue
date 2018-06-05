@@ -1,6 +1,6 @@
 <template>
-  <view class="vist-deleteImage" :style="{ width : getWindowWidth + 'px' , height : getWindowHeight + 'px' }">
-    <img :src="getChooseImage" />
+  <view class="vist-deleteImage" :style="{ width : getWindowWidth + 'px' ,minHeight:getWindowHeight + 'px', height :'100%',overflow:'hidden' }">
+    <img v-for="(item,index) in getGoLinks" :key="index" class="bigImg" :src="item" @click="previewImage(item,index)">
   </view>
 </template>
 
@@ -11,17 +11,44 @@ export default {
     }
   },
   methods: {
-    
+    previewImage(item,index){
+      wx.showActionSheet({  
+        itemList: ['删除','返回编辑'],  
+        itemColor:'red',
+        success: (res)=> {  
+          if(res.tapIndex==0){
+            if(this.$store.state.board.goLinks.length==1){
+              wx.showToast({  
+                title: '不能全删除了哦',  
+                icon: 'none',  
+                mask:true,
+                duration: 1500,
+                success:()=>{
+                  const url = '../editWord/main'
+                  wx.redirectTo({ url })
+                }
+              }) 
+            }else{
+              this.$store.state.board.boards.forEach((item2,index2)=>{
+                if(item2.key === item){
+                  this.$store.state.board.boards.splice(index2,1)
+                }
+              })
+              this.$store.state.board.goLinks.splice(index,1)
+            }
+          }else if(res.tapIndex==1){
+            const url = '../editWord/main'
+            wx.redirectTo({ url })
+          }
+        },  
+        fail: function(res) {  
+        }  
+      })  
+    }
   },
   computed: {
-    getChooseImage(){
-      return this.$store.state.board.chooseImage
-    },
-    getChooseIndex(){
-      return this.$store.state.board.chooseIndex
-    },
-    getChooseIndexNow(){
-      return this.$store.state.board.chooseIndexNow
+    getGoLinks(){
+      return this.$store.state.board.goLinks
     },
     getWindowWidth(){
       return this.$store.state.board.windowWidth
@@ -31,26 +58,7 @@ export default {
     }
   },
   mounted () {
-    wx.showActionSheet({  
-      itemList: ['删除'],  
-      itemColor:'red',
-      success: (res)=> {  
-          if(res.tapIndex==0){
-              this.$store.state.board.boards.splice(this.getChooseIndex,1)
-              this.$store.state.board.goLinks.splice(this.getChooseIndexNow,1)
-              if(this.$store.state.board.goLinks.length==0){
-                  this.$store.state.board.goLinks.push(this.$store.state.board.boards[1].key)
-                  this.$store.state.board.boards[1].checked = true;
-              }
-              const url = '../insfuncction/main'
-              wx.redirectTo({ url })
-          }
-      },  
-      fail: function(res) {  
-          const url = '../insfuncction/main'
-          wx.redirectTo({ url })
-      }  
-    })  
+    
   }
 }
 </script>
@@ -64,12 +72,10 @@ export default {
   width: 100%;
   background-color:#000;
   img{
-        display: block;
-        position: absolute;
-        top: 15%;
-        left:20px;
-        width: 335px;
-        height: 335px;
+    float:left;
+    width: 157.5px;
+    height: 157.5px;
+    margin: 10px;
   }
 }
 </style>

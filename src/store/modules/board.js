@@ -17,7 +17,7 @@ const state = {
     locations:[
       '北京','北京-佛香阁','北京-海淀区','北京-颐和园'
     ],
-    goLink:'',
+    goLink:require('../../../static/images/img2.jpg'),
     goLinks:[require('../../../static/images/img2.jpg')],
     address:'',
     windowWidth:0,
@@ -30,6 +30,7 @@ const state = {
     chooseImage:'',
     chooseIndex:0,
     chooseIndexNow:0,
+    isabled:true
 }
 
 export default {

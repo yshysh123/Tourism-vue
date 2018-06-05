@@ -5,7 +5,7 @@
      <div class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></div>
      <div class="icon-dizhi iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></div>
      <div class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></div>
-     <button open-type="share">分享</button>
+     <button open-type="share" :disabled="isabled" :class="isabled ? 'grayButton':'blueButton'">分享</button>
     </div>
   </view>
 </template>
@@ -54,7 +54,6 @@ export default {
         color: #0099ff;
       }
       button {
-        background-color: #0099ff;
         color: #fff;
         font-size: 14px;
         width: 20%;
@@ -63,6 +62,12 @@ export default {
         display:block;
         float:right;
         border-radius: 0;
+      }
+      .blueButton{
+        background-color: #0099ff;
+      }
+      .grayButton{
+        background-color: #ccc;
       }
     }
   }
@@ -89,6 +94,9 @@ export default {
       },
       isClickrulo(){
         return this.$store.state.board.isClickrulo
+      },
+      isabled(){
+        return this.$store.state.board.isabled
       }
     },
     methods: {
@@ -108,7 +116,7 @@ export default {
         this.$store.state.board.isClickrule = false;
         this.$store.state.board.isClickruly = false;
         this.$store.state.board.isClickrulo = false;
-        const url = '../insfuncction/main'
+        const url = '../changeWord/main'
         wx.redirectTo({ url })
       },
       place() {
@@ -131,6 +139,7 @@ export default {
     created() {
     },
     mounted() {
+      
     },
     components: {
 
