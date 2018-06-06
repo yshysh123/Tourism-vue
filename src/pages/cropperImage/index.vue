@@ -12,7 +12,7 @@
       <div
         class="upload"
         @tap="uploadTap">
-        上传图片
+        选择图片
       </div>
       <div
         class="getCropperImage"
@@ -26,6 +26,8 @@
 <script>
 import MpvueCropper from 'mpvue-cropper'
 
+let wecropper
+
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -33,18 +35,17 @@ const height = device.windowHeight - 50
 export default {
   data () {
     return {
-      cropper: null,
       cropperOpt: {
         id: 'cropper',
         width,
         height,
-        scale: 1,
-        zoom: 1,
+        scale: 2.5,
+        zoom: 8,
         cut: {
-          x: (width - 335) / 2,
-          y: (height - 335) / 2,
-          width: 335,
-          height: 335
+          x: (width - 300) / 2,
+          y: (height - 300) / 2,
+          width: 300,
+          height: 300
         }
       }
     }
@@ -76,13 +77,18 @@ export default {
           const src = res.tempFilePaths[0]
           //  获取裁剪图片资源后，给data添加src属性及其值
 
-          this.cropper.pushOrigin(src)
+          wecropper.pushOrigin(src)
         }
       })
     },
     getCropperImage () {
-      this.cropper.getCropperImage()
+      wecropper.getCropperImage()
         .then((src) => {
+          
+          // wx.previewImage({
+          //   current: '', // 当前显示图片的http链接
+          //   urls: [src] // 需要预览的图片http链接列表
+          // })
           wx.getImageInfo({
             src: src,
             success:(res)=>{
@@ -92,10 +98,6 @@ export default {
           })
           const url = '../insfuncction/main'
           wx.redirectTo({ url })
-          // wx.previewImage({
-          //   current: '', // 当前显示图片的http链接
-          //   urls: [src] // 需要预览的图片http链接列表
-          // })
         })
         .catch(e => {
           console.error('获取图片失败')
@@ -104,7 +106,7 @@ export default {
   },
 
   mounted () {
-    this.cropper = this.$refs.cropper
+    wecropper = this.$refs.cropper
   }
 }
 </script>

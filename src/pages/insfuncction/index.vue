@@ -156,20 +156,20 @@
           },
           changeImg(item,index){
             if(index==0){
-              // const url = '../cropperImage/main'
-              // wx.redirectTo({ url })
+              const url = '../cropperImage/main'
+              wx.redirectTo({ url })
 
-              wx.chooseImage({
-                count: 1, // 默认9
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                success:(res)=> {
-                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                  this.$store.state.board.goLink = res.tempFilePaths
-                  this.$store.state.board.goLinks.push(res.tempFilePaths[0])
-                  this.$store.state.board.boards.push({key:res.tempFilePaths[0],checked:true})
-                }
-              })
+              // wx.chooseImage({
+              //   count: 1, // 默认9
+              //   sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              //   sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              //   success:(res)=> {
+              //     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+              //     this.$store.state.board.goLink = res.tempFilePaths
+              //     this.$store.state.board.goLinks.push(res.tempFilePaths[0])
+              //     this.$store.state.board.boards.push({key:res.tempFilePaths[0],checked:true})
+              //   }
+              // })
             }
           },
           changeWord(item,index){

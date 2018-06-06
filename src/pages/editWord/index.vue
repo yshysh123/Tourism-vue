@@ -1,8 +1,7 @@
 <template>
   <div class="vist-userInfo">
       <view class="section" style="width:335px;">  
-        <textarea style="width:335px;" :value="getVisitFont" maxlength="200" @input="textareaChange"/>
-        <span style="display:block;width:100%;text-align:right">{{remnant}}/200</span>
+        <textarea style="width:335px;" maxlength=0 :value="getVisitFont" @input="textareaChange"/>
       </view>  
       <div class="imgChange">
         <ul style="overflow:hidden">
@@ -27,7 +26,6 @@ import card from '@/components/card'
 export default {
   data () {
     return {
-      remnant:200,
       locationNow:''
     }
   },
@@ -39,8 +37,6 @@ export default {
   methods: {
     textareaChange(e) { 
       this.$store.state.board.visitFont =  e.target.value
-      var txtVal = this.$store.state.board.visitFont.length;
-      this.remnant = 200 - txtVal;
     },
     changeImg(){
       // this.$store.state.board.isClickrule = true;
@@ -78,7 +74,6 @@ export default {
     }
   },
   mounted () {
-    this.remnant = 200 - this.$store.state.board.visitFont.length;
     this.locationNow = this.$store.state.board.address
     var pages = getCurrentPages() 
     var currentPage = pages[pages.length-1]

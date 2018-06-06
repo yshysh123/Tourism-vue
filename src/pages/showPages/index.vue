@@ -83,33 +83,36 @@ export default {
         count ++;
         newtext.shift();
       }
-      ctx.setTextAlign('right')
+      ctx.setFillStyle('#ccc')
+      ctx.setTextAlign('left')
       ctx.setFontSize(14)
-      ctx.fillText('地址:'+this.getAddress,(this.$store.state.board.windowWidth-35),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+2)*25);
+      ctx.fillText('地址:'+this.getAddress,20,this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+2)*25 + 10);
 
       ctx.setFillStyle('orange')
-      ctx.fillRect(0, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25, this.$store.state.board.windowWidth, 140)
+      ctx.fillRect(0, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25, this.$store.state.board.windowWidth, 140)
       //画二维码
-      ctx.drawImage('/static/images/code.jpg', this.$store.state.board.windowWidth/2-40, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25 +20 , 80 , 80)
+      ctx.drawImage('/static/images/code.jpg', this.$store.state.board.windowWidth/2-40, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25 +20 , 80 , 80)
       //二维码文字
       ctx.setFillStyle('#fff')
       ctx.setFontSize(14)
       ctx.setTextAlign('center')
-      ctx.fillText('扫描上方二维码进入小程序',(this.$store.state.board.windowWidth/2),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/23+3)*25 +120);
+      ctx.fillText('扫描上方二维码进入小程序',(this.$store.state.board.windowWidth/2),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25 +120);
       ctx.draw(true)
     },
     saveImage(){
       let that = this;
       const ctx = wx.createCanvasContext('shareCanvas')
       ctx.setFillStyle('#fff')
-      ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (that.getVisitFont.length/23+3)*25 + 140);
+      ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (that.getVisitFont.length/24+3)*25 + 140);
       let getImageDraw = [];
       this.getGoLink.forEach((item,index) => {
         wx.getImageInfo({
           src: item,
           success:(res)=>{
             ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, (this.$store.state.board.windowWidth-40)*(index)+20, (this.$store.state.board.windowWidth-40), (this.$store.state.board.windowWidth-40))
-            that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*(this.$store.state.board.windowWidth-40)+40)
+            if(index == this.getGoLink.length-1){
+              that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*(this.$store.state.board.windowWidth-40)+40)
+            }
           }
         })
       });
@@ -137,7 +140,7 @@ export default {
     }
   },
   mounted () {
-    this.cavHeight = this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (this.getVisitFont.length/23+3)*25 + 140
+    this.cavHeight = this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (this.getVisitFont.length/24+3)*25 + 140
     var pages = getCurrentPages() 
     var currentPage = pages[pages.length-1]
     var url = currentPage.route 

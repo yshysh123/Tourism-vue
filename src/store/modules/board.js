@@ -1,6 +1,6 @@
 const state = {
     boards: [
-      { key: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527964375804&di=c6f8ed52f6bfa5166c6c71db2958f113&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fbaike%2Fw%3D268%2Fsign%3D792273edf9edab6474724ac6cf36af81%2Fa08b87d6277f9e2fda25102e1d30e924b899f380.jpg',checked:false},
+      { key: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528301429389&di=9ba057251bee5ac18a9510acfa6cafac&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F14%2F86%2F63%2F54D58PICRKh_1024.jpg',checked:false},
       { key: require('../../../static/images/img2.jpg'),checked:true},
       { key: require('../../../static/images/img3.jpg'),checked:false},
       { key: require('../../../static/images/img4.jpg'),checked:false},
