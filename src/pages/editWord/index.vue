@@ -10,7 +10,7 @@
           </li>
           <li class="imgChange-add" @click="changeImg">
             <!--<img :src="pics.length<10 ? 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527964375804&di=c6f8ed52f6bfa5166c6c71db2958f113&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fbaike%2Fw%3D268%2Fsign%3D792273edf9edab6474724ac6cf36af81%2Fa08b87d6277f9e2fda25102e1d30e924b899f380.jpg':'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528221941366&di=01024dc9a34dc6d5744b96f3beb72fff&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F7e3e6709c93d70cff1d171eeffdcd100baa12b2e.jpg'" />-->
-            <i :class="pics.length<10 ? 'icon-tianjiajiahaowubiankuang iconfont':'icon-jian iconfont'"></i>
+            <i :class="pics.length<9 ? 'icon-tianjiajiahaowubiankuang iconfont':'icon-jian iconfont'"></i>
           </li>
         </ul>
       </div>
@@ -46,7 +46,7 @@ export default {
       // this.$store.state.board.isClickrulo = false;
       // const url = '../insfuncction/main'
       // wx.redirectTo({ url })
-      if(this.$store.state.board.goLinks.length>10){
+      if(this.$store.state.board.goLinks.length>=9){
         const url = '../deleteImage/main'
         wx.redirectTo({ url })
       }else{

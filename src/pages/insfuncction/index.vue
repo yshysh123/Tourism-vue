@@ -130,6 +130,7 @@
         },
         methods: {
           serviceValChange(e){
+            let checkArr = e.target.value;
             if(e.target.value.length<1){
               wx.showToast({
                 title: '最少选择一张',
@@ -139,17 +140,18 @@
               })
               return
             }
-            else if(e.target.value.length>10){
+            else if(e.target.value.length>9){
               wx.showToast({
-                title: '最多预览10张',
+                title: '最多预览9张',
                 icon: 'none',
                 mask:true,
                 duration: 1500
               })
+              this.$store.state.board.goLinks.pop();
+              this.$store.state.board.boards.pop();
               return
             }
             else{
-              var checkArr = e.target.value;
               if (checkArr.join(',').indexOf('base64')!= -1){
                 return
               }

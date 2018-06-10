@@ -21,12 +21,14 @@ export default {
       type:'gcj02',
       altitude:true,
       success:(res)=>{
+        console.log(res)
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
             longitude: res.longitude
           },
           success:(addressRes)=> {
+            console.log(addressRes)
             this.$store.state.board.address = addressRes.result.address_component.city+'-'+addressRes.result.address_component.district
           }
         })
