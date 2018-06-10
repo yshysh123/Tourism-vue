@@ -28,12 +28,12 @@ export default {
   methods: {
     bindViewTap (urls) {
       const url = '../instrustor/main'
-      wx.redirectTo({ url })
+      wx.navigateTo({ url })
 
     },
     sharefoot(){
       const url = '../insfuncction/main'
-      wx.redirectTo({ url })
+      wx.navigateTo({ url })
     },
     getUser () {
       getUserInfo().then((res)=>{
