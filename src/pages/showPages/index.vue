@@ -83,33 +83,53 @@ export default {
         count ++;
         newtext.shift();
       }
+      ctx.draw(true)
       ctx.setFillStyle('#ccc')
       ctx.setTextAlign('left')
       ctx.setFontSize(14)
-      ctx.fillText('地址:'+this.getAddress,20,this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+2)*25 + 10);
+      ctx.fillText('发布于:',20,this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+2)*25 + 10);
+      ctx.draw(true)
+      
+      ctx.drawImage('/static/images/location.jpg', 67, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+2)*25 -3)
+      ctx.draw(true)
 
+      ctx.setFillStyle('#ccc')
+      ctx.setTextAlign('left')
+      ctx.setFontSize(14)
+      ctx.fillText(this.getAddress,80,this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+2)*25 + 10);
+      ctx.draw(true)
       ctx.setFillStyle('orange')
       ctx.fillRect(0, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25, this.$store.state.board.windowWidth, 140)
       //画二维码
       ctx.drawImage('/static/images/code.jpg', this.$store.state.board.windowWidth/2-40, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25 +20 , 80 , 80)
+      ctx.draw(true)
       //二维码文字
       ctx.setFillStyle('#fff')
       ctx.setFontSize(14)
       ctx.setTextAlign('center')
       ctx.fillText('扫描上方二维码进入小程序',(this.$store.state.board.windowWidth/2),this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (stringLenght/24+3)*25 +120);
       ctx.draw(true)
+      wx.hideLoading()
     },
     saveImage(){
+      wx.showLoading({
+        title: '绘制中...',
+      })
       let that = this;
       const ctx = wx.createCanvasContext('shareCanvas')
       ctx.setFillStyle('#fff')
       ctx.fillRect(0, 0, this.$store.state.board.windowWidth, this.getGoLink.length*(this.$store.state.board.windowWidth-40) + (that.getVisitFont.length/24+3)*25 + 140);
       let getImageDraw = [];
       this.getGoLink.forEach((item,index) => {
-        wx.getImageInfo({
-          src: item,
+        // ctx.drawImage(item, 20, (this.$store.state.board.windowWidth-40)*(index)+20, (this.$store.state.board.windowWidth-40), (this.$store.state.board.windowWidth-40))
+        // if(index == this.getGoLink.length-1){
+        //   that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*(this.$store.state.board.windowWidth-40)+40)
+        // }
+        wx.downloadFile({
+          url: item,
           success:(res)=>{
-            ctx.drawImage(res.path.split('/')[0]==='static'?'/'+res.path:res.path, 20, (this.$store.state.board.windowWidth-40)*(index)+20, (this.$store.state.board.windowWidth-40), (this.$store.state.board.windowWidth-40))
+            ctx.drawImage(res.tempFilePath, 20, (this.$store.state.board.windowWidth-40)*(index)+20, (this.$store.state.board.windowWidth-40), (this.$store.state.board.windowWidth-40))
+            ctx.draw(true)
             if(index == this.getGoLink.length-1){
               that.draw_long_text(that.getVisitFont,ctx,20,that.getGoLink.length*(this.$store.state.board.windowWidth-40)+40)
             }

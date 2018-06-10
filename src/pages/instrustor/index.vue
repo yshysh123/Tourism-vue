@@ -51,13 +51,13 @@
                 '背靠智慧海，以它为中心的各建筑群严整而对称地向两翼展开，形成重心捧月之势，气派相当宏伟。佛香阁高41米，' +
                 '8面3层4重瞻，阁内有8根巨大铁梨木擎天柱，结构相当复杂，为古典建筑精品。',
                 id:'1',
-                imgUrl:'http://img20.360buyimg.com/uba/jfs/t21673/78/80890633/138676/e58378d8/5afa7eb0N8d471370.png'},
+                imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528648397176&di=ab7020301ebdb94d00fef168bbfb0d8c&imgtype=0&src=http%3A%2F%2Fimg.liketrip.cn%2Fjqphoto%2F2008-06-02%2F200806020856405.jpg'},
                 {
                 text:'在清朝乾隆时期（1736-1795）在此建九层延寿塔，至第八层“奉旨停修”，改建佛香阁。1860年（咸丰十年）毁于' +
                 '英法联军，光绪时（1875-1908）在原址依样重建，供奉佛像。1860年(咸丰十年)毁于八国联军，光绪时（1870-1908）在原址' +
                 '依样重建，供奉佛像。',
                 id:'2',
-                imgUrl:'http://img30.360buyimg.com/uba/jfs/t21736/89/85457602/113428/3a5fa97e/5afa7eb0N716ebd59.png'
+                imgUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528648397177&di=c200ee3317a885cc0c22bdc646190468&imgtype=0&src=http%3A%2F%2Fpic10.nipic.com%2F20101024%2F3510519_133641009589_2.jpg'
                 }
               ]
             }

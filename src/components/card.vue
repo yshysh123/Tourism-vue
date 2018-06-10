@@ -3,7 +3,7 @@
     <div class="visite-bottom-style-card">
      <div class="icon-21 iconfont iconWidth" :class="isClickrule ? 'blueColor':''" @click="phoneto"></div>
      <div class="icon-T iconfont iconWidth iconWidthft" :class="isClickrulr ? 'blueColor':''" @click="edite"></div>
-     <div class="icon-dizhi iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></div>
+     <div class="icon-bianji iconfont iconWidth" :class="isClickruly ? 'blueColor':''" @click="place"></div>
      <div class="icon-chakan iconfont lastIcon " :class="isClickrulo ? 'blueColor':''" @click="lookSee"></div>
      <button open-type="share" :disabled="isabled" :class="isabled ? 'grayButton':'blueButton'">分享</button>
     </div>
@@ -139,7 +139,7 @@ export default {
     created() {
     },
     mounted() {
-      
+
     },
     components: {
 

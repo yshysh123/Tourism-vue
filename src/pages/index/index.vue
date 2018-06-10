@@ -1,10 +1,12 @@
 <template>
   <div class="vist-userInfo">
       <div class="look-scenery" @click="bindViewTap">
-        查看景区介绍
+        <!--<i class="icon-jieshao iconfont"></i>-->
+        <span>查看景区介绍</span>
       </div>
       <div class="share-visit" @click="sharefoot">
-        分享足迹
+        <!--<i class="icon-zuji-copy iconfont"></i>-->
+        <span>分享足迹</span>
       </div>
   </div>
 </template>
@@ -48,32 +50,12 @@ export default {
     })
   },
   mounted(){
-    wx.getSystemInfo({ 
+    wx.getSystemInfo({
       success:(res)=> {
         this.$store.state.board.windowWidth  = res.windowWidth
-      } 
-    })
-    var QQMapWX = require('../../../static/qqmap-wx-jssdk.min.js');
-    qqmapsdk = new QQMapWX({
-      key: 'TGQBZ-5BR3P-4Y7DJ-VW22G-3HYGF-JIFVF'
-    });
-    var qqmapsdk;
-    let that = this;
-    wx.getLocation({
-      type:'gcj02',
-      altitude:true,
-      success:(res)=>{
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success:(addressRes)=> {
-            this.$store.state.board.address = addressRes.result.formatted_addresses.recommend;
-          }
-        })
       }
     })
+    
   }
 }
 </script>
@@ -96,6 +78,9 @@ export default {
      text-align:center;
      background-color: #B8DCEB;
      color: #647279;
+     i {
+       font-size: 18px;
+     }
    }
    .share-visit {
      width: 100%;
@@ -106,6 +91,9 @@ export default {
      margin-top:10px;
      color: #647279;
      background-color:#B8DCEB;
+     i {
+       font-size: 18px;
+     }
    }
 }
 </style>

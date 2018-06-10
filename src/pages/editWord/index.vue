@@ -1,15 +1,16 @@
 <template>
   <div class="vist-userInfo">
-      <view class="section" style="width:335px;">  
-        <textarea style="width:335px;" maxlength=0 :value="getVisitFont" @input="textareaChange"/>
-      </view>  
+      <view class="section" style="width:335px;">
+        <textarea style="width:335px; border-bottom: 1px solid #ddd" maxlength=0 :value="getVisitFont" @input="textareaChange"/>
+      </view>
       <div class="imgChange">
         <ul style="overflow:hidden">
           <li v-for="(item,index) in pics" :key="index">
             <img :src="item">
           </li>
-          <li @click="changeImg">
-            <img :src="pics.length<10 ? 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527964375804&di=c6f8ed52f6bfa5166c6c71db2958f113&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fbaike%2Fw%3D268%2Fsign%3D792273edf9edab6474724ac6cf36af81%2Fa08b87d6277f9e2fda25102e1d30e924b899f380.jpg':'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528221941366&di=01024dc9a34dc6d5744b96f3beb72fff&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F7e3e6709c93d70cff1d171eeffdcd100baa12b2e.jpg'" />
+          <li class="imgChange-add" @click="changeImg">
+            <!--<img :src="pics.length<10 ? 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527964375804&di=c6f8ed52f6bfa5166c6c71db2958f113&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fbaike%2Fw%3D268%2Fsign%3D792273edf9edab6474724ac6cf36af81%2Fa08b87d6277f9e2fda25102e1d30e924b899f380.jpg':'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528221941366&di=01024dc9a34dc6d5744b96f3beb72fff&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F7e3e6709c93d70cff1d171eeffdcd100baa12b2e.jpg'" />-->
+            <i :class="pics.length<10 ? 'icon-tianjiajiahaowubiankuang iconfont':'icon-jian iconfont'"></i>
           </li>
         </ul>
       </div>
@@ -35,7 +36,7 @@ export default {
   },
 
   methods: {
-    textareaChange(e) { 
+    textareaChange(e) {
       this.$store.state.board.visitFont =  e.target.value
     },
     changeImg(){
@@ -45,7 +46,7 @@ export default {
       // this.$store.state.board.isClickrulo = false;
       // const url = '../insfuncction/main'
       // wx.redirectTo({ url })
-      if(this.$store.state.board.goLinks.length>=10){
+      if(this.$store.state.board.goLinks.length>10){
         const url = '../deleteImage/main'
         wx.redirectTo({ url })
       }else{
@@ -75,9 +76,9 @@ export default {
   },
   mounted () {
     this.locationNow = this.$store.state.board.address
-    var pages = getCurrentPages() 
+    var pages = getCurrentPages()
     var currentPage = pages[pages.length-1]
-    var url = currentPage.route 
+    var url = currentPage.route
     if(url==="pages/showPages/main"){
       this.$store.state.board.isabled = false;
     }else{
@@ -112,6 +113,16 @@ export default {
           height: 100%;
         }
       }
+    .imgChange-add {
+      border: 1px dashed #ddd;
+      text-align:center;
+     i {
+            line-height: 70px;
+            text-aline:center;
+            color: #ddd;
+            font-size: 20px;
+          }
+    }
     }
   }
   .visit-font{
@@ -121,8 +132,13 @@ export default {
     padding:0 10px;
     box-sizing: border-box;
     font-size: 14px;
+    .iconvist {
+      color: #ddd;
+      margin-left:10px;
+    }
     i{
       float: left;
+      margin-top: 2px;
     }
     span{
       display: inline-block;

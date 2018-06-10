@@ -1,7 +1,7 @@
 import Vue from "vue";
 import store from "./store";
 import App from "./App";
-import './iconfont/iconfont.css'
+import './iconfont/iconfont.css';
 // import 'mp-weui/lib/style.css'
 var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
@@ -25,9 +25,9 @@ export default {
     pages: ["pages/logs/main", "^pages/index/main","pages/cropperImage/main","pages/changeWord/main","pages/instrustor/main","pages/deleteImage/main","pages/insfuncction/main","pages/savePage/main","pages/publicNum/main","pages/editWord/main","pages/showPages/main",],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#fff",
+      navigationBarBackgroundColor: "#000",
       navigationBarTitleText: "景区信息",
-      navigationBarTextStyle: "black"
+      navigationBarTextStyle: "white"
     },
     // tabBar: {
     //   color: '#999',

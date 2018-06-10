@@ -5,7 +5,8 @@
         <ul style="overflow:hidden">
           <li v-for="(item,index) in words" :key="index" @click="changeWord(item,index)">
             <i :class="['not_icon',{style:index == selectedWords}]"></i>
-            {{item}}
+            <!--<i :class="['icon-xuanzhong1',{icon-xuanzhong:index == selectedWords}]"></i>-->
+            <span class="visit-reduce">{{item}}</span>
           </li>
         </ul>
       </div>
@@ -15,7 +16,7 @@
 
 <style lang="scss">
   .vist-function {
-    padding: 20px 0 60px 0;
+    padding: 0 0 60px 0;
     font-size: 14px;
     position:relative;
     width:100%;
@@ -28,8 +29,8 @@
       vertical-align: middle;
       margin: 0 auto;
       position: relative;
-      width: 335px;
-      height: 335px;
+      width: 375px;
+      height: 375px;
     }
     .wordChange{
       width: 100%;
@@ -37,11 +38,17 @@
         overflow: hidden;
         padding: 10px 20px;
         li{
-          margin:10px 10px;
+          margin-top:5px;
           i {
-            display: inline-block;;
+
             width: 20px;
             height: 20px;
+
+          }
+          .visit-reduce {
+            display:inline-block;
+            margin-left:25px;
+            margin-top:-20px;
 
           }
           .not_icon {
@@ -106,9 +113,9 @@
         },
         mounted() {
           this.$store.state.board.goLink = this.$store.state.board.goLinks[0]
-          var pages = getCurrentPages() 
+          var pages = getCurrentPages()
           var currentPage = pages[pages.length-1]
-          var url = currentPage.route 
+          var url = currentPage.route
           if(url==="pages/showPages/main"){
             this.$store.state.board.isabled = false;
           }else{
